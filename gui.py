@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 视频转录系统 v2.3 - 图形界面主程序
@@ -463,17 +463,16 @@ class VideoTranscribeApp:
                     tone=self.tone_var.get(),
                     generate_summary=self.summary_var.get(),
                     extract_keywords=self.keywords_var.get(),
-                    keyword_count=10,
                 )
                 pipeline = TranscribePipeline(config=config)
                 result = pipeline.process(input_path, output_dir)
-                root.after(0, lambda: self._on_pipeline_done(result, output_path))
+                self.root.after(0, lambda: self._on_pipeline_done(result, output_path))
             except Exception as e:
-                root.after(0, lambda: self._log(f"  ✗ 处理失败: {e}"))
+                self.root.after(0, lambda: self._log(f"  ✗ 处理失败: {e}"))
                 root.after(0, lambda: messagebox.showerror("错误", f"处理失败:\n{str(e)}"))
             finally:
-                root.after(0, lambda: self._set_buttons_state(tk.NORMAL))
-                root.after(0, lambda: self.status.config(text="就绪"))
+                self.root.after(0, lambda: self._set_buttons_state(tk.NORMAL))
+                self.root.after(0, lambda: self.status.config(text="就绪"))
         
         t = threading.Thread(target=run_pipeline, daemon=True)
         t.start()
@@ -530,6 +529,14 @@ class VideoTranscribeApp:
   步骤2: 逻辑重构与精炼
   步骤3: 风格与语气润色
   步骤4: 最终审校
+
+
+五、处理速度参考（约10-15分钟视频）
+   云端 API（硅基流动）:  ~13 分钟（转录+四步精修+摘要）
+   本地 Ollama（CPU）:   ~20-30 分钟（取决于CPU性能）
+   仅转录（关AI增强）:    ~2 分钟
+
+可关闭摘要/关键词来提速。
 
 注意事项:
 • 云端 API 需要网络连接

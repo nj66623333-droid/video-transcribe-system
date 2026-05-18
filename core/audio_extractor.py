@@ -62,6 +62,8 @@ class AudioExtractor:
                 [self.ffmpeg_path, '-version'],
                 capture_output=True,
                 text=True,
+                encoding='utf-8',
+                errors='replace',
                 timeout=10
             )
             if result.returncode != 0:
@@ -120,6 +122,8 @@ class AudioExtractor:
                 cmd,
                 capture_output=True,
                 text=True,
+                encoding='utf-8',
+                errors='replace',
                 timeout=300  # 5分钟超时
             )
             
@@ -151,7 +155,9 @@ class AudioExtractor:
         result = subprocess.run(
             cmd,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         
         # ffmpeg 将信息输出到 stderr
