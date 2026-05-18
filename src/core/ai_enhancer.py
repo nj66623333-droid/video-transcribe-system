@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 AI 增强模块 - 四步精修推理链版本
 支持本地 Ollama 和云端 API（OpenAI 兼容接口）
@@ -74,7 +74,7 @@ class ProviderConfig:
     api_key: str = ""                          # API 密钥
     model: str = DEFAULT_MODEL                 # 模型名称
     base_url: str = ""                         # 自定义 API 地址
-    timeout: int = 300                         # 超时时间
+    timeout: int = 600                         # 超时时间
 
 
 @dataclass
