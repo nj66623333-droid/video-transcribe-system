@@ -6,3 +6,4 @@ output/
 config/
 
 ffmpeg.exe
+portable_lib/

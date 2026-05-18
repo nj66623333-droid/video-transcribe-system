@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 AI 增强模块 - 四步精修推理链版本
 支持本地 Ollama 和云端 API（OpenAI 兼容接口）

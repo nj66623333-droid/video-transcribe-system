@@ -66,7 +66,7 @@ https://www.python.org/downloads/windows/
 python --version
 ```
 
-#### 2️⃣ FFmpeg（音视频处理核心，必须安装）
+#### 2️⃣ FFmpeg（音视频处理核心）
 
 ```bash
 # 下载链接（选 Windows builds → ffmpeg-master-latest-win64-gpl.zip）
@@ -106,6 +106,9 @@ ollama pull gemma4
 ### 📦 安装依赖
 
 ```bash
+# 确保已安装 Python 3.10+
+
+# 直接双击 start.bat，或手动执行：
 pip install -r requirements.txt
 ```
 
@@ -116,7 +119,7 @@ pip install -r requirements.txt
 
 ```bash
 # 方式一：双击 start.bat（Windows）
-python src/gui/main.py
+python gui.py
 ```
 
 ### ✅ 环境验证清单
@@ -141,7 +144,6 @@ python src/gui/main.py
 | 🎙️ 仅转录（关闭AI增强） | ~2 分钟 | 只跑 Whisper base 模型 |
 
 > 可关闭不需要的 AI 步骤（摘要/关键词）来提速。
-
 
 ## 📖 使用教程
 
@@ -175,19 +177,17 @@ python src/gui/main.py
 ## 🏗️ 项目结构
 
 ```
-video-transcribe-project/
-├── src/
-│   ├── core/           # 核心模块
-│   │   ├── ai_enhancer.py       # AI 增强（四步精修推理链）
-│   │   ├── audio_extractor.py   # 音频提取
-│   │   ├── transcriber.py       # Whisper 语音识别
-│   │   ├── obsidian_exporter.py # Obsidian 导出
-│   │   └── pipeline.py          # 完整处理流水线
-│   └── gui/            # 图形界面
-│       ├── app.py                # GUI 主类
-│       └── main.py               # 入口
+video-transcribe-deliver/
+├── gui.py              # 图形界面主程序
+├── start.bat           # Windows 一键启动
 ├── requirements.txt    # Python 依赖
-└── README.md           # 本文件
+├── README.md           # 本文件
+├── core/               # 核心流水线模块
+│   ├── pipeline.py     # 转录流水线
+│   ├── ai_enhancer.py  # AI 四步精修
+│   ├── transcriber.py  # Whisper 语音识别
+│   ├── audio_extractor.py   # 音频提取
+│   └── obsidian_exporter.py # Obsidian 导出
 ```
 
 ## 🛠️ 技术栈

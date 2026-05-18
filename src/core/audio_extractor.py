@@ -36,8 +36,12 @@ class AudioExtractor:
         if ffmpeg:
             return ffmpeg
         
-        # 检查常见安装路径
+        # 检查同级目录及常见安装路径
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.dirname(script_dir)
         common_paths = [
+            os.path.join(parent_dir, 'ffmpeg.exe'),     # 与 gui.py 同级
+            os.path.join(script_dir, 'ffmpeg.exe'),      # core/ 目录下
             r'C:\ffmpeg\bin\ffmpeg.exe',
             r'C:\Program Files\ffmpeg\bin\ffmpeg.exe',
             r'C:\Program Files (x86)\ffmpeg\bin\ffmpeg.exe',
@@ -62,6 +66,8 @@ class AudioExtractor:
                 [self.ffmpeg_path, '-version'],
                 capture_output=True,
                 text=True,
+                encoding='utf-8',
+                errors='replace',
                 timeout=10
             )
             if result.returncode != 0:
@@ -120,6 +126,8 @@ class AudioExtractor:
                 cmd,
                 capture_output=True,
                 text=True,
+                encoding='utf-8',
+                errors='replace',
                 timeout=300  # 5分钟超时
             )
             
@@ -151,7 +159,9 @@ class AudioExtractor:
         result = subprocess.run(
             cmd,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'
         )
         
         # ffmpeg 将信息输出到 stderr
