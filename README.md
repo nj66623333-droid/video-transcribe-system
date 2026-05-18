@@ -1,6 +1,6 @@
 # 视频转录系统
 
-> 基于 Whisper + Ollama 的本地视频转录与 AI 智能增强工具
+> 基于 Whisper + Ollama 的本地视频/音频转录与 AI 智能增强工具
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
@@ -8,7 +8,7 @@
 
 ## 📋 项目简介
 
-视频转录系统是一款完全离线的本地视频转文字工具，支持：
+视频转录系统是一款完全离线的本地视频/音频转文字工具，支持：
 
 - 🎙️ **本地语音识别** - 基于 OpenAI Whisper，无需网络
 - 🤖 **AI 智能增强** - 基于 Ollama 本地大模型，四步精修推理链
@@ -32,6 +32,15 @@
 2. **逻辑重构与精炼** - 识别核心论点，重组逻辑结构
 3. **风格与语气润色** - 根据目标听众调整语言风格
 4. **最终审校** - 质量控制与完善
+
+### 支持的文件格式
+
+| 类型 | 格式 |
+|------|------|
+| 🎬 视频 | MP4 / AVI / MKV / MOV |
+| 🎵 音频 | MP3 / WAV / M4A / AAC / OGG / FLAC |
+
+> 音频文件无需视频提取步骤，直接转录，速度更快。
 
 ### 输出格式
 
@@ -57,7 +66,7 @@ https://www.python.org/downloads/windows/
 python --version
 ```
 
-#### 2️⃣ FFmpeg（音视频处理核心）
+#### 2️⃣ FFmpeg（音视频处理核心，必须安装）
 
 ```bash
 # 下载链接（选 Windows builds → ffmpeg-master-latest-win64-gpl.zip）
@@ -97,9 +106,6 @@ ollama pull gemma4
 ### 📦 安装依赖
 
 ```bash
-# 确保已安装 Python 3.10+
-
-# 直接双击 start.bat，或手动执行：
 pip install -r requirements.txt
 ```
 
@@ -110,7 +116,7 @@ pip install -r requirements.txt
 
 ```bash
 # 方式一：双击 start.bat（Windows）
-python gui.py
+python src/gui/main.py
 ```
 
 ### ✅ 环境验证清单
@@ -125,7 +131,8 @@ python gui.py
 
 ## 📖 使用教程
 
-1. **选择视频文件** - 点击"浏览"选择 MP4/AVI/MKV/MOV 文件
+1. **选择文件** - 点击"📄 文件"选择视频（MP4/AVI/MKV/MOV）或音频（MP3/WAV/M4A/AAC/OGG/FLAC）；
+   点击"📁 文件夹"批量处理整个目录
 2. **选择转录模型** - 根据需要选择速度/精度
 3. **配置 AI 增强** - 自定义逻辑重构和风格润色选项
 4. **开始处理** - 点击"开始处理"等待完成
@@ -154,17 +161,19 @@ python gui.py
 ## 🏗️ 项目结构
 
 ```
-video-transcribe-deliver/
-├── gui.py              # 图形界面主程序
-├── start.bat           # Windows 一键启动
+video-transcribe-project/
+├── src/
+│   ├── core/           # 核心模块
+│   │   ├── ai_enhancer.py       # AI 增强（四步精修推理链）
+│   │   ├── audio_extractor.py   # 音频提取
+│   │   ├── transcriber.py       # Whisper 语音识别
+│   │   ├── obsidian_exporter.py # Obsidian 导出
+│   │   └── pipeline.py          # 完整处理流水线
+│   └── gui/            # 图形界面
+│       ├── app.py                # GUI 主类
+│       └── main.py               # 入口
 ├── requirements.txt    # Python 依赖
-├── README.md           # 本文件
-├── core/               # 核心流水线模块
-│   ├── pipeline.py     # 转录流水线
-│   ├── ai_enhancer.py  # AI 四步精修
-│   ├── transcriber.py  # Whisper 语音识别
-│   ├── audio_extractor.py   # 音频提取
-│   └── obsidian_exporter.py # Obsidian 导出
+└── README.md           # 本文件
 ```
 
 ## 🛠️ 技术栈
