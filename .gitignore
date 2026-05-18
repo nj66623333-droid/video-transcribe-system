@@ -4,3 +4,5 @@
 .env
 output/
 config/
+
+ffmpeg.exe
